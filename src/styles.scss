@@ -1,0 +1,11 @@
+$select-box-removing-color: red;
+
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~ngx-drag-to-select/scss/ngx-drag-to-select";
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+}

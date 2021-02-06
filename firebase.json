@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "frc-path-editor",
+    "public": "dist/frc-path-editor",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

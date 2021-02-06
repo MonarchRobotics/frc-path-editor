@@ -1,0 +1,30 @@
+<h2>MONARCH ROBOTICS PATH EDITOR</h2>
+<div>
+  <input type="file"
+         id="file"
+         (change)="handleFileInput($event.target.files)"><br>
+  <span>X: </span><input type="number" [(ngModel)]="minX"><span> to </span><input type="number" [(ngModel)]="maxX"><br>
+  <span>Y: </span><input type="number" [(ngModel)]="minY"><span> to </span><input type="number" [(ngModel)]="maxY">
+</div>
+
+<dts-select-container class="drag-area" [(selectedItems)]="selected">
+	<div class="field" #field (window:resize)="updateField()">
+		<div class="point {{point.intake ? 'intake' : ''}}" *ngFor="let point of points;" [dtsSelectItem]="point"
+      [style]="getStyle(point)"
+    >
+		</div>
+	</div>
+</dts-select-container>
+
+<div class="selected-items">
+	<h3>Selected {{ selected.length}} points</h3>
+<!--  <pre>-->
+<!--    {{selected | json}}-->
+<!--  </pre>-->
+</div>
+<div *ngIf="selected.length>0">
+  <span>Use Intake?</span><input [(ngModel)]="selectedUseIntake" type="checkbox"><button (click)="applyIntake()">Apply</button><br>
+  <span>Velocity Scalar</span><input [(ngModel)]="selectedScalar" type="number"><button (click)="applyScalar()">Apply</button>
+</div>
+
+<button (click)="saveFile()">Save file</button>
