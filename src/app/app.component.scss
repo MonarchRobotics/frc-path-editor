@@ -1,6 +1,6 @@
 .field {
   width: 100%;
-  height: 500px;
+  height: 350px;
 }
 
 .drag-area {
@@ -41,6 +41,45 @@ mat-card {
 }
 
 .intake, .selected .intake{
+  border: 1px solid #ffd200 !important;
+}
+
+
+.backwards, .selected .backwards{
+  border: 1px solid #0000ff !important;
+}
+
+.intake.backwards, .selected .backwards .intake{
   border: 1px solid #00ff00 !important;
 }
 
+ngx-slider{
+  width: calc(100% - 300px);
+}
+::ng-deep {
+  .ngx-slider .ngx-slider-pointer {
+    background-color: #ffd200 !important;
+  }
+  .ngx-slider .ngx-slider-selection {
+    background-color: #ffd200 !important;
+  }
+  .ngx-slider .ngx-slider-pointer:after {
+    background-color: black !important;
+  }
+}
+
+button, input, label{
+  font-size: 15px;
+  font-family: "Pirulen", Roboto, sans-serif;
+  color: #ffd200;
+  background-color: #222;
+}
+
+button, label{
+  border: 1px solid #ffd200;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  padding: 3px;
+  margin: 3px;
+}

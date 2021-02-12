@@ -6,13 +6,15 @@ import { DragToSelectModule } from "ngx-drag-to-select";
 import { MatCardModule } from "@angular/material/card";
 
 import { AppComponent } from "./app.component";
+import {NgxSliderModule} from "@angular-slider/ngx-slider";
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     DragToSelectModule.forRoot(),
-    MatCardModule
+    MatCardModule,
+    NgxSliderModule,
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent]

@@ -1,15 +1,17 @@
 <h2>MONARCH ROBOTICS PATH EDITOR</h2>
 <div>
+  <label for="file">Choose File</label>
   <input type="file"
+         style="display: none"
          id="file"
          (change)="handleFileInput($event.target.files)"><br>
   <span>X: </span><input type="number" [(ngModel)]="minX"><span> to </span><input type="number" [(ngModel)]="maxX"><br>
   <span>Y: </span><input type="number" [(ngModel)]="minY"><span> to </span><input type="number" [(ngModel)]="maxY">
 </div>
 
-<dts-select-container class="drag-area" [(selectedItems)]="selected">
+<dts-select-container #selector class="drag-area" [(selectedItems)]="selected">
 	<div class="field" #field (window:resize)="updateField()">
-		<div class="point {{point.intake ? 'intake' : ''}}" *ngFor="let point of points;" [dtsSelectItem]="point"
+		<div class="point {{point.intake ? 'intake' : ''}} {{point.backwards ? 'backwards' : ''}}" *ngFor="let point of points;" [dtsSelectItem]="point"
       [style]="getStyle(point)"
     >
 		</div>
@@ -17,13 +19,18 @@
 </dts-select-container>
 
 <div class="selected-items">
-	<h3>Selected {{ selected.length}} points</h3>
-<!--  <pre>-->
-<!--    {{selected | json}}-->
-<!--  </pre>-->
+  <h3>Select from range:</h3>
+  <ngx-slider [(value)]="sliderValue" [(highValue)]="sliderHighValue" [options]="sliderOptions"></ngx-slider>
+  <button (click)="selectRange()">Select</button>
+	<h2>Selected {{ selected.length}} points</h2>
 </div>
 <div *ngIf="selected.length>0">
+  <button (click)="movePoints(0)"><</button>
+  <button (click)="movePoints(1)">^</button>
+  <button (click)="movePoints(2)">v</button>
+  <button (click)="movePoints(3)">></button><br>
   <span>Use Intake?</span><input [(ngModel)]="selectedUseIntake" type="checkbox"><button (click)="applyIntake()">Apply</button><br>
+  <span>Backwards?</span><input [(ngModel)]="selectedBackwards" type="checkbox"><button (click)="applyBackwards()">Apply</button><br>
   <span>Velocity Scalar</span><input [(ngModel)]="selectedScalar" type="number"><button (click)="applyScalar()">Apply</button>
 </div>
 
