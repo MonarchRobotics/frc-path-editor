@@ -25,10 +25,14 @@
 	<h2>Selected {{ selected.length}} points</h2>
 </div>
 <div *ngIf="selected.length>0">
+  <span>Move Amount [m]: </span><input type="number" [(ngModel)]="moveAmount">
   <button (click)="movePoints(0)"><</button>
   <button (click)="movePoints(1)">^</button>
   <button (click)="movePoints(2)">v</button>
   <button (click)="movePoints(3)">></button><br>
+  <span>Rotate Amount [deg]: </span><input type="number" [(ngModel)]="rotateAmount">
+  <button (click)="rotatePoints(false)">CCW</button>
+  <button (click)="rotatePoints(true)">CW</button><br>
   <span>Use Intake?</span><input [(ngModel)]="selectedUseIntake" type="checkbox"><button (click)="applyIntake()">Apply</button><br>
   <span>Backwards?</span><input [(ngModel)]="selectedBackwards" type="checkbox"><button (click)="applyBackwards()">Apply</button><br>
   <span>Velocity Scalar</span><input [(ngModel)]="selectedScalar" type="number"><button (click)="applyScalar()">Apply</button>

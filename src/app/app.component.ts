@@ -38,6 +38,9 @@ export class AppComponent {
   selectedBackwards = false;
   selectedScalar = 1.0;
 
+  moveAmount = 0.02;
+  rotateAmount = 10;
+
   async handleFileInput(files: FileList) {
     this.points = [];
     this.uploadedFile = files.item(0);
@@ -75,29 +78,54 @@ export class AppComponent {
   }
 
   movePoints(dir: number){
-    let amount = 0.02;
     switch(dir){
       case 0:
         for(let point of this.selected){
-          point.x -= amount;
+          point.x -= this.moveAmount;
         }
         break;
       case 1:
         for(let point of this.selected){
-          point.y += amount;
+          point.y += this.moveAmount;
         }
         break;
       case 2:
         for(let point of this.selected){
-          point.y -= amount;
+          point.y -= this.moveAmount;
         }
         break;
       case 3:
         for(let point of this.selected){
-          point.x += amount;
+          point.x += this.moveAmount;
         }
         break;
     }
+  }
+
+  rotatePoints(clockwise: boolean){
+    let midX = 0, midY = 0;
+    for(let point of this.selected){
+      midX += point.x;
+      midY += point.y;
+    }
+    midX /= this.selected.length;
+    midY /= this.selected.length;
+    console.log(midX, midY);
+    console.log(this.selected);
+    for(let point of this.selected){
+      let newPoint = this.rotate(midX, midY, point.x, point.y, this.rotateAmount * (clockwise ? 1 : -1));
+      point.x = newPoint[0];
+      point.y = newPoint[1];
+    }
+  }
+
+  rotate(cx, cy, x, y, angle) {
+    let radians = (Math.PI / 180) * angle,
+      cos = Math.cos(radians),
+      sin = Math.sin(radians),
+      nx = (cos * (x - cx)) + (sin * (y - cy)) + cx,
+      ny = (cos * (y - cy)) - (sin * (x - cx)) + cy;
+    return [nx, ny];
   }
 
   updateField(){
@@ -111,7 +139,7 @@ export class AppComponent {
     let yRange = this.maxY - this.minY;
     let x = (p.x - this.minX)/xRange * this.fieldWidth;
     let y = (1 -(p.y - this.minY)/yRange) * this.fieldHeight;
-    let size = 2 + p.scalar * 4;
+    let size = 1 + p.scalar * 2;
 
     return 'top: '+(y - size/2).toString()+'px; '
       +'left:'+(x-size/2).toString()+'px;'
